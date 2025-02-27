@@ -1,0 +1,12 @@
+---
+# tasks file for k3s
+- name: Include common tasks
+  ansible.builtin.include_tasks: common.yml
+
+- name: Include master tasks
+  ansible.builtin.include_tasks: master.yml
+  when: "'master' in group_names"
+
+- name: Include worker tasks
+  ansible.builtin.include_tasks: worker.yml
+  when: "'worker' in group_names"

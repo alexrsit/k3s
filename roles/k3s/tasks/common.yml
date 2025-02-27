@@ -1,0 +1,14 @@
+- name: Update apt
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Disable Swap
+  ansible.builtin.command: swapoff -a
+  changed_when: false
+
+- name: Ensure Swap is disabled
+  ansible.builtin.replace:
+    path: /etc/fstab
+    regexp: '^.*swap.*$'
+    replace: '#&'
+    backup: no

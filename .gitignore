@@ -1,0 +1,4 @@
+playbook.yml
+hosts.yml
+*.env
+.vscode
