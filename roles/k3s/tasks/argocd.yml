@@ -1,0 +1,47 @@
+- name: Check if ArgoCD namespace exists
+  shell: kubectl get namespace argocd --ignore-not-found
+  register: argocd_namespace
+  changed_when: false
+
+- name: Add ArgoCD namespace
+  when: argocd_namespace.stdout == ""
+  shell: | 
+    kubectl create namespace argocd
+
+- name: Install ArgoCD
+  when: argocd_namespace.stdout == ""
+  shell: |
+    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+- name: Get ArgoCD password
+  shell: |
+    kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode ; echo
+  register: argocd_password
+
+- name: Display ArgoCD password
+  ansible.builtin.debug:
+    msg: "ArgoCD password: {{ argocd_password.stdout }}"
+  when: argocd_password.stdout is defined
+
+- name: Create NodePort service for ArgoCD
+  shell: |
+    kubectl apply -f - <<EOF
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: argocd-server-np
+      namespace: argocd
+    spec:
+      type: NodePort
+      ports:
+      - port: 80
+        targetPort: 8080
+        nodePort: 30007
+      selector:
+        app.kubernetes.io/name: argocd-server
+    EOF
+  when: argocd_namespace.stdout == ""
+
+- name: Display ArgoCD URL
+  ansible.builtin.debug:
+    msg: "ArgoCD URL: https://{{ ansible_host }}:30007"

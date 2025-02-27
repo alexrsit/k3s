@@ -10,3 +10,7 @@
 - name: Include worker tasks
   ansible.builtin.include_tasks: worker.yml
   when: "'worker' in group_names"
+
+- name: Include ArgoCD tasks
+  ansible.builtin.include_tasks: argocd.yml
+  when: "'master' in group_names"
