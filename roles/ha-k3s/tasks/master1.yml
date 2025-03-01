@@ -1,0 +1,11 @@
+- name: Check if k3s is already installed
+  shell: k3s --version
+  register: k3s_installed
+  ignore_errors: true
+
+- name: Install k3s on the first master
+  when: k3s_installed.rc != 0
+  shell: |
+    curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 sh -s - server \
+      --cluster-init \
+      --tls-san={{ hostvars['haproxy']['virtual_ip'] }}

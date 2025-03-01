@@ -1,0 +1,35 @@
+- name: Update apt
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install HAProxy
+  ansible.builtin.apt:
+    name: haproxy
+    state: present
+
+- name: Install Keepalived
+  ansible.builtin.apt:
+    name: keepalived
+    state: present
+
+- name: Copy HAProxy configuration
+  ansible.builtin.template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+
+- name: Copy Keepalived configuration
+  ansible.builtin.template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+
+- name: Start HAProxy
+  ansible.builtin.systemd:
+    name: haproxy
+    state: started
+    enabled: yes
+
+- name: Start Keepalived
+  ansible.builtin.systemd:
+    name: keepalived
+    state: started
+    enabled: yes
