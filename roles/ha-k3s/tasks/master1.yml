@@ -7,5 +7,6 @@
   when: k3s_installed.rc != 0
   shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 sh -s - server \
+      K3S_KUBECONFIG_MODE="644" \
       --cluster-init \
-      --tls-san={{ hostvars['haproxy']['virtual_ip'] }}
+      --tls-san={{ hostvars['virtual_ip']['virtual_ip'] }}

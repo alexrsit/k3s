@@ -8,4 +8,4 @@
   shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 sh -s - server \
       --server https://{{ hostvars['master1']['ansible_host'] }}:6443 \
-      --tls-san={{ [hostvars['haproxy']['virtual_ip']] }} 
+      --tls-san={{ [hostvars['virtual_ip']['virtual_ip']] }} 

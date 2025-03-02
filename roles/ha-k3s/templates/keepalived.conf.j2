@@ -9,14 +9,14 @@ global_defs {
   }
   
   vrrp_instance haproxy-vip {
-      interface eth1
-      state <STATE> # MASTER on lb-1, BACKUP on lb-2
-      priority <PRIORITY> # 200 on lb-1, 100 on lb-2
+      interface ens33
+      state {{ keepalived_state }} # MASTER on lb-1, BACKUP on lb-2
+      priority {{ keepalived_priority }} # 200 on lb-1, 100 on lb-2
   
       virtual_router_id 51
   
       virtual_ipaddress {
-          {{ hostvars['haproxy']['virtual_ip'] }}
+          {{ hostvars['virtual_ip']['virtual_ip'] }}
       }
   
       track_script {

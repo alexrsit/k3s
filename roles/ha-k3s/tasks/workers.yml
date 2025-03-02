@@ -7,4 +7,4 @@
   when: k3s_running.rc != 0
   shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 sh -s - agent \
-      --server https://{{ hostvars['haproxy']['virtual_ip'] }}:6443
+      --server https://{{ hostvars['virtual_ip']['virtual_ip'] }}:6443
