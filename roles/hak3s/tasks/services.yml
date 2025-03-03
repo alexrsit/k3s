@@ -4,7 +4,7 @@
   when: "'master1' in group_names"
 
 - name: Copy manifest to /tmp
-  copy:
+  ansible.bultin.copy:
     src: "{{ playbook_dir }}/roles/ha-k3s/manifests/metrics-server.yaml"
     dest: /tmp/metrics-server.yaml
   when: namespace_exists.stdout | length == 0 and "'master1' in group_names"
