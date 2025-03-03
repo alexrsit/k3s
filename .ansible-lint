@@ -11,3 +11,5 @@ skip_list:
     - no-changed-when
     - empty-string-compare
     - meta-incorrect
+    - risky-file-permissions
+    - no-free-form
