@@ -1,0 +1,22 @@
+- name: Include common tasks
+  ansible.builtin.include_tasks: common.yml
+
+- name: Include haproxy tasks
+  ansible.builtin.include_tasks: haproxy.yml
+  when: "'haproxy' in group_names"
+
+- name: Include first master tasks
+  ansible.builtin.include_tasks: master1.yml
+  when: "'master1' in group_names"
+
+- name: Include subsequent master tasks
+  ansible.builtin.include_tasks: masterx.yml
+  when: "'masterx' in group_names"
+
+- name: Include worker tasks
+  ansible.builtin.include_tasks: workers.yml
+  when: "'worker' in group_names"
+
+- name: Include services tasks
+  ansible.builtin.include_tasks: services.yml
+  when: "'master1' in group_names"

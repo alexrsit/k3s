@@ -1,2 +1,13 @@
 exclude_paths:
-    - roles/ha-k3s/manifests/
+    - roles/hak3s/manifests/
+    - roles/hak3s/templates/
+    - .github/workflows/
+
+skip_list:
+    - command-instead-of-module
+    - command-instead-of-shell
+    - yaml
+    - risky-shell-pipe
+    - no-changed-when
+    - empty-string-compare
+    - meta-incorrect

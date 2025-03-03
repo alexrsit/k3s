@@ -3,12 +3,14 @@
     update_cache: true
 
 - name: Disable Swap
+  when: "'master', 'worker' in group_names"
   ansible.builtin.command: swapoff -a
   changed_when: false
 
 - name: Ensure Swap is disabled
+  when: "'master', 'worker' in group_names"
   ansible.builtin.replace:
     path: /etc/fstab
     regexp: '^.*swap.*$'
     replace: '#&'
-    backup: no
+    backup: false
