@@ -1,0 +1,2 @@
+exclude_paths:
+    - roles/ha-k3s/manifests/
