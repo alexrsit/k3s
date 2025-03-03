@@ -16,3 +16,7 @@
 - name: Include worker tasks
   ansible.builtin.include_tasks: workers.yml
   when: "'worker' in group_names"
+
+- name: Include services tasks
+  ansible.builtin.include_tasks: services.yml
+  when: "'master1' in group_names"
