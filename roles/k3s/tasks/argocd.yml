@@ -1,20 +1,20 @@
 - name: Check if ArgoCD namespace exists
-  shell: kubectl get namespace argocd --ignore-not-found
+  ansible.bultin.shell: kubectl get namespace argocd --ignore-not-found
   register: argocd_namespace
   changed_when: false
 
 - name: Add ArgoCD namespace
   when: argocd_namespace.stdout == ""
-  shell: | 
+  ansible.bultin.shell: | 
     kubectl create namespace argocd
 
 - name: Install ArgoCD
   when: argocd_namespace.stdout == ""
-  shell: |
+  ansible.bultin.shell: |
     kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 - name: Get ArgoCD password
-  shell: |
+  ansible.bultin.shell: |
     kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode ; echo
   register: argocd_password
 
@@ -24,7 +24,7 @@
   when: argocd_password.stdout is defined
 
 - name: Create NodePort service for ArgoCD
-  shell: |
+  ansible.bultin.shell: |
     kubectl apply -f - <<EOF
     apiVersion: v1
     kind: Service

@@ -1,16 +1,16 @@
 - name: Check if k3s is already installed
-  shell: k3s --version
+  ansible.bultin.shell: k3s --version
   register: k3s_installed
   ignore_errors: true
 
 - name: Check if helm is already installed
-  shell: helm version
+  ansible.bultin.shell: helm version
   register: helm_installed
   ignore_errors: true
 
 - name: Install k3s on master
   when: k3s_installed.rc != 0
-  shell: |
+  ansible.bultin.shell: |
     curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--write-kubeconfig-mode 644 --write-kubeconfig /etc/rancher/k3s/k3s.yaml" sh -
 
 - name: Download Helm install script
@@ -21,7 +21,7 @@
     mode: '0700'
 
 - name: Install Helm
-  shell: |
+  ansible.bultin.shell: |
     if ! command -v helm &> /dev/null; then /tmp/get_helm.sh; fi
 
 - name: Get k3s token
@@ -34,7 +34,7 @@
     k3s_token: "{{ k3s_token.content | b64decode | trim }}"
 
 - name: Verify installation
-  shell: | 
+  ansible.bultin.shell: | 
     k3s --version
     helm version
   register: k3s_version

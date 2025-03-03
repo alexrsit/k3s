@@ -1,5 +1,5 @@
 - name: Check if namespace exists
-  shell: kubectl get namespace kube-system --ignore-not-found
+  ansible.bultin.shell: kubectl get namespace kube-system --ignore-not-found
   register: namespace_exists
   when: "'master1' in group_names"
 
@@ -10,10 +10,10 @@
   when: namespace_exists.stdout | length == 0 and "'master1' in group_names"
 
 - name: Apply metrics-server.yaml manifest
-  shell: kubectl apply -f /tmp/metrics-server.yaml
+  ansible.bultin.shell: kubectl apply -f /tmp/metrics-server.yaml
   when: namespace_exists.stdout == "" and "'master1' in group_names"
 
 - name: Check if metrics-server pod is running
-  shell: kubectl get pods -n kube-system -l k8s-app=metrics-server --ignore-not-found
+  ansible.bultin.shell: kubectl get pods -n kube-system -l k8s-app=metrics-server --ignore-not-found
   register: metrics_server_pod
   when: "'master1' in group_names"
