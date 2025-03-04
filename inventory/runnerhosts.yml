@@ -54,3 +54,22 @@ all:
       ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     virtual_ip:
       virtual_ip: 192.168.1.60
+
+  children:
+    master1:
+      hosts:
+        master1:
+    masterx:
+      hosts:
+        master2:
+        master3:
+    haproxy:
+      hosts:
+        loadbalancer1:
+        loadbalancer2:
+    worker:
+      hosts:
+        worker1:
+        worker2:
+        worker3:
+        
