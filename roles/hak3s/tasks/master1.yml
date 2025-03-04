@@ -12,7 +12,7 @@
 
 - name: Install k3s on the first master
   when: k3s_installed.rc != 0
-  ansible.builtin.shell: |
+  ansible.builtin.command: |
     K3S_TOKEN=secrettoken1337 sh /tmp/k3s_install.sh -s - server \
       K3S_KUBECONFIG_MODE="644" \
       --cluster-init \
