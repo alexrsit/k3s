@@ -10,7 +10,7 @@ on:
       - feature-*
 
 jobs:
-  linter:
+  lint-code:
     runs-on: self-hosted
     steps:
       - name: Checkout code
@@ -19,7 +19,13 @@ jobs:
         uses: ansible/ansible-lint@main
         with:
           args: -c .ansible-lint
-      - name: Test ansible playbook against local env
+
+  test-locally:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run ansible playbook
         uses: dawidd6/action-ansible-playbook@v3
         with:
           playbook: playbook.yml
