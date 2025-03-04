@@ -10,7 +10,7 @@ on:
       - feature-*
 
 jobs:
-  lint-code:
+  linter:
     runs-on: self-hosted
     steps:
       - name: Checkout code
