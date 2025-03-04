@@ -1,5 +1,5 @@
 - name: Check if k3s is already installed
-  ansible.bultin.shell: k3s --version
+  ansible.bultin.command: k3s --version
   register: k3s_installed
   ignore_errors: true
 
