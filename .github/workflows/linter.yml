@@ -19,6 +19,8 @@ jobs:
         uses: ansible/ansible-lint@main
         with:
           args: -c .ansible-lint
+      - name: Install sshpass
+        run: sudo apt-get install sshpass
       - name: Test ansible playbook
         uses: dawidd6/action-ansible-playbook@v3
         with:
