@@ -16,7 +16,7 @@ global_defs {
       virtual_router_id 51
   
       virtual_ipaddress {
-          {{ hostvars['virtual_ip']['virtual_ip'] }}
+          {{ virtual_ip }}
       }
   
       track_script {
