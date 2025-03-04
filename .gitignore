@@ -2,4 +2,5 @@ playbook.yml
 hosts.yml
 *.env
 .vscode
+var.yml
 hahosts.yml

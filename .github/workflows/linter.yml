@@ -19,3 +19,15 @@ jobs:
         uses: ansible/ansible-lint@main
         with:
           args: -c .ansible-lint
+      - name: Test ansible playbook
+        uses: dawidd6/action-ansible-playbook@v3
+        with:
+          playbook: playbook.yml
+          inventory: inventory/runnerhosts.yml
+          configuration: |
+            [defaults]
+            host_key_checking = False
+        env:
+          ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
+          ANSIBLE_SSH_PASS: ${{ secrets.ANSIBLE_SSH_PASS }}
+          ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}
