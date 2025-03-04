@@ -23,7 +23,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v3
         with:
           playbook: playbook.yml
-          inventory: inventory/runnerhosts.yml
+          inventory: ${{ secrets.ANSIBLE_INVENTORY }}
           configuration: |
             [defaults]
             host_key_checking = False
