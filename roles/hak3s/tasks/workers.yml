@@ -1,10 +1,10 @@
 - name: Check if service is running on worker nodes
-  ansible.bultin.shell: systemctl is-active k3s-agent
+  ansible.builtin.shell: systemctl is-active k3s-agent
   register: k3s_running
   ignore_errors: true
 
 - name: Join worker nodes
   when: k3s_running.rc != 0
-  ansible.bultin.shell: |
+  ansible.builtin.shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 sh -s - agent \
       --server https://{{ hostvars['virtual_ip']['virtual_ip'] }}:6443
