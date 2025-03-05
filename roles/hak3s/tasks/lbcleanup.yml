@@ -1,0 +1,7 @@
+- name: Disable haproxy & keepalived
+  ansible.builtin.shell: |
+    systemctl stop haproxy keepalived |
+    systemctl disable haproxy keepalived |
+    rm -f /etc/systemd/system/haproxy.service /etc/systemd/system/keepalived.service |
+    systemctl daemon-reload |
+    rm -f /etc/haproxy/haproxy.cfg /etc/keepalived/keepalived.conf

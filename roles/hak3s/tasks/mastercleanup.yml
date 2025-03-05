@@ -1,0 +1,3 @@
+- name: Uninstall k3s on servers
+  when: "'master1' or 'masterx' in group_names"
+  ansible.builtin.shell: /usr/local/bin/k3s-uninstall.sh
