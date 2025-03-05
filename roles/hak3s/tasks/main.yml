@@ -23,12 +23,12 @@
 
 - name: Include clean-up tasks
   ansible.builtin.include_tasks: mastercleanup.yml
-  when: should_cleanup is defined and should_cleanup == true and ('master1' in group_names or 'masterx' in group_names)
+  when: should_cleanup is defined and should_cleanup | bool true and ('master1' in group_names or 'masterx' in group_names)
 
 - name: Include load balancer clean-up tasks
   ansible.builtin.include_tasks: lbcleanup.yml
-  when: should_cleanup is defined and should_cleanup == true and 'haproxy' in group_names
+  when: should_cleanup is defined and should_cleanup | bool and 'haproxy' in group_names
 
 - name: Include worker clean-up tasks
   ansible.builtin.include_tasks: workercleanup.yml
-  when: should_cleanup is defined and should_cleanup == true and 'worker' in group_names
+  when: should_cleanup is defined and should_cleanup | bool and 'worker' in group_names
