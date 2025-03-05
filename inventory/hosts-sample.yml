@@ -1,7 +1,7 @@
 all:
   vars:
     virtual_ip: 192.168.1.60
-    should_cleanup: true
+    should_cleanup: true # Set to false to keep the environment after the playbook run
   hosts:
     master1:
       ansible_host: 192.168.1.50
