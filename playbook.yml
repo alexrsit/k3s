@@ -3,3 +3,4 @@
   become: yes
   roles:
   - hak3s
+  should_cleanup: true

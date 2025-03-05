@@ -20,3 +20,7 @@
 - name: Include services tasks
   ansible.builtin.include_tasks: services.yml
   when: "'master1' in group_names"
+
+- name: Include clean-up tasks
+  ansible.builtin.include_tasks: cleanup.yml
+  when: should_cleanup is defined and should_cleanup == true
