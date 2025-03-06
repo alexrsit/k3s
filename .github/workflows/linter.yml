@@ -1,4 +1,4 @@
-name: Lint code on push and test locally 
+name: Lintt code on push and test locally 
 
 on:
   push:
