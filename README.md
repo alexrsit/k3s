@@ -4,6 +4,9 @@ Installs a loadbalanced k3s cluster on selected hosts.
 Recommended 3 masters, 3 workers and 2 loadbalancer nodes. 
 Preferred and tested OS = Ubuntu >=22.04
 
+Use "cleanup" role if the environment is to be destroyed after creation.
+Full example below
+
 ## Playbook usage
 
 ```yaml
@@ -45,19 +48,22 @@ all:
     ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
     ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
     ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
-  children:
+  master1:
     master1:
       ansible_host: 192.168.1.50
+  masterx:
     master2:
       ansible_host: 192.168.1.51
     master3:
       ansible_host: 192.168.1.52
+  worker:
     worker1:
       ansible_host: 192.168.1.53
     worker2:
       ansible_host: 192.168.1.54
     worker3:
       ansible_host: 192.168.1.55
+  loadbalancer:
     loadbalancer1:
       keepalived_state: "MASTER"
       keepalived_priority: 200
