@@ -1,3 +1,47 @@
+# Loadbalanced K3s Cluster
+
+Installs a loadbalanced k3s cluster on selected hosts. 
+Recommended 3 masters, 3 workers and 2 loadbalancer nodes. 
+Preferred and tested OS = Ubuntu >=22.04
+
+Use "cleanup" role if the environment is to be destroyed after creation.
+Full example below
+
+## Playbook usage
+
+```yaml
+- name: Common tasks
+  hosts: all
+  become: yes
+  roles:
+  - common
+
+- name: Install loadbalancer
+  hosts: loadbalancer
+  become: yes
+  roles:
+  - loadbalancer
+
+- name: Install k3s on masters
+  hosts: master1:masterx
+  become: yes
+  roles:
+  - k3s_master
+
+- name: Install k3s on workers
+  hosts: worker
+  become: yes
+  roles:
+  - k3s_worker
+
+- name: Cleanup
+  hosts: all
+  become: yes
+  roles:
+  - cleanup
+```
+## Sample inventory with required params
+```yaml
 all:
   vars:
     virtual_ip: 192.168.1.60
