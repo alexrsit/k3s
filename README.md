@@ -48,27 +48,32 @@ all:
     ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
     ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
     ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
-  master1:
+  children:
     master1:
-      ansible_host: 192.168.1.50
-  masterx:
-    master2:
-      ansible_host: 192.168.1.51
-    master3:
-      ansible_host: 192.168.1.52
-  worker:
-    worker1:
-      ansible_host: 192.168.1.53
-    worker2:
-      ansible_host: 192.168.1.54
-    worker3:
-      ansible_host: 192.168.1.55
-  loadbalancer:
-    loadbalancer1:
-      keepalived_state: "MASTER"
-      keepalived_priority: 200
-      ansible_host: 192.168.1.56
-    loadbalancer2:
-      keepalived_state: "BACKUP"
-      keepalived_priority: 100
-      ansible_host: 192.168.1.57
+      hosts:
+        master1:
+          ansible_host: 192.168.1.50
+    masterx:
+      hosts:
+        master2:
+          ansible_host: 192.168.1.51
+        master3:
+          ansible_host: 192.168.1.52
+    worker:
+      hosts:
+        worker1:
+          ansible_host: 192.168.1.53
+        worker2:
+          ansible_host: 192.168.1.54
+        worker3:
+          ansible_host: 192.168.1.55
+    loadbalancer:
+      hosts:
+        loadbalancer1:
+          keepalived_state: "MASTER"
+          keepalived_priority: 200
+          ansible_host: 192.168.1.56
+        loadbalancer2:
+          keepalived_state: "BACKUP"
+          keepalived_priority: 100
+          ansible_host: 192.168.1.57
