@@ -77,3 +77,5 @@ all:
           keepalived_state: "BACKUP"
           keepalived_priority: 100
           ansible_host: 192.168.1.57
+```
+Using github actions against local environment for validating and testing idempotency.
