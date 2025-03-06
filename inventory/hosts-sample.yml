@@ -1,74 +1,28 @@
 all:
   vars:
     virtual_ip: 192.168.1.60
-  hosts:
+    ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
+    ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
+    ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
+  children:
     master1:
       ansible_host: 192.168.1.50
-      node_type: "master1"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     master2:
       ansible_host: 192.168.1.51
-      node_type: "masterx"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     master3:
       ansible_host: 192.168.1.52
-      node_type: "masterx"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     worker1:
       ansible_host: 192.168.1.53
-      node_type: "worker"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     worker2:
       ansible_host: 192.168.1.54
-      node_type: "worker"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     worker3:
       ansible_host: 192.168.1.55
-      node_type: "worker"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     loadbalancer1:
       keepalived_state: "MASTER"
       keepalived_priority: 200
       ansible_host: 192.168.1.56
-      node_type: "loadbalancer"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
     loadbalancer2:
       keepalived_state: "BACKUP"
       keepalived_priority: 100
       ansible_host: 192.168.1.57
-      node_type: "loadbalancer"
-      ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-      ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-      ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
 
-  children:
-    master1:
-      hosts:
-        master1:
-    masterx:
-      hosts:
-        master2:
-        master3:
-    loadbalancer:
-      hosts:
-        loadbalancer1:
-        loadbalancer2:
-    worker:
-      hosts:
-        worker1:
-        worker2:
-        worker3:
