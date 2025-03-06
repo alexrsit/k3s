@@ -1,3 +1,3 @@
 ---
-haproxy_conf_path: /etc/haproxy/haproxy.cfg
-keepalived_conf_path: /etc/keepalived/keepalived.conf
+loadbalancer_haproxy_conf_path: /etc/haproxy/haproxy.cfg
+loadbalancer_keepalived_conf_path: /etc/keepalived/keepalived.conf
