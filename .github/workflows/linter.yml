@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - feature-*
   pull_request:
     branches:
       - main
@@ -21,6 +22,7 @@ jobs:
           args: -c .ansible-lint
 
   test-locally:
+    needs: linter
     runs-on: self-hosted
     steps:
       - name: Checkout code
@@ -33,6 +35,7 @@ jobs:
           configuration: |
             [defaults]
             host_key_checking = False
+          #options: --check
         env:
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
           ANSIBLE_SSH_PASS: ${{ secrets.ANSIBLE_SSH_PASS }}

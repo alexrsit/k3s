@@ -1,0 +1,2 @@
+- name: Uninstall k3s on workers
+  ansible.builtin.shell: "{{ cleanup_k3s_worker_uninstall_script_path }}"

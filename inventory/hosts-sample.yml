@@ -1,7 +1,6 @@
 all:
   vars:
     virtual_ip: 192.168.1.60
-    should_cleanup: true # Set to false to keep the environment after the playbook run
   hosts:
     master1:
       ansible_host: 192.168.1.50
@@ -43,7 +42,7 @@ all:
       keepalived_state: "MASTER"
       keepalived_priority: 200
       ansible_host: 192.168.1.56
-      node_type: "haproxy"
+      node_type: "loadbalancer"
       ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
       ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
       ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
@@ -51,7 +50,7 @@ all:
       keepalived_state: "BACKUP"
       keepalived_priority: 100
       ansible_host: 192.168.1.57
-      node_type: "haproxy"
+      node_type: "loadbalancer"
       ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
       ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
       ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
@@ -64,7 +63,7 @@ all:
       hosts:
         master2:
         master3:
-    haproxy:
+    loadbalancer:
       hosts:
         loadbalancer1:
         loadbalancer2:

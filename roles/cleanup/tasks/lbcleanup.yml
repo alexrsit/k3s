@@ -1,0 +1,12 @@
+- name: Disable haproxy & keepalived
+  ansible.builtin.shell: |
+    systemctl stop haproxy keepalived |
+    systemctl disable haproxy keepalived |
+    rm -f {{ cleanup_haproxy_service_path }} {{ cleanup_keepalived_service_path }} |
+    systemctl daemon-reload |
+    rm -f {{ cleanup_haproxy_conf_path }} {{ cleanup_keepalived_conf_path }}
+
+- name: Uninstall haproxy & keepalived
+  ansible.builtin.apt:
+    name: haproxy, keepalived
+    state: absent

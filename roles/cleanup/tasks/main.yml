@@ -1,0 +1,11 @@
+- name: Include loadbalancer tasks
+  ansible.builtin.include_tasks: lbcleanup.yml
+  when: "'loadbalancer' in group_names"
+
+- name: Include worker tasks
+  ansible.builtin.include_tasks: workercleanup.yml
+  when: "'worker' in group_names"
+
+- name: Include master tasks
+  ansible.builtin.include_tasks: mastercleanup.yml
+  when: "'master1' in group_names or 'masterx' in group_names"

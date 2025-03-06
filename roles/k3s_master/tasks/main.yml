@@ -1,0 +1,7 @@
+- name: Include first master tasks
+  ansible.builtin.include_tasks: master1.yml
+  when: "'master1' in group_names"
+
+- name: Include subsequent master tasks
+  ansible.builtin.include_tasks: masterx.yml
+  when: "'masterx' in group_names"

@@ -1,0 +1,7 @@
+---
+cleanup_haproxy_conf_path: /etc/haproxy/haproxy.cfg
+cleanup_keepalived_conf_path: /etc/keepalived/keepalived.conf
+cleanup_haproxy_service_path: /etc/systemd/system/haproxy.service
+cleanup_keepalived_service_path: /etc/systemd/system/keepalived.service
+cleanup_k3s_worker_uninstall_script_path: /usr/local/bin/k3s-agent-uninstall.sh
+cleanup_k3s_master_uninstall_script_path: /usr/local/bin/k3s-uninstall.sh
