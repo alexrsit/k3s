@@ -37,3 +37,4 @@ jobs:
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
           ANSIBLE_SSH_PASS: ${{ secrets.ANSIBLE_SSH_PASS }}
           ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}
+        options: --check

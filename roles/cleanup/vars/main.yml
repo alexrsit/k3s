@@ -1,0 +1,7 @@
+---
+haproxy_conf_path: /etc/haproxy/haproxy.cfg
+keepalived_conf_path: /etc/keepalived/keepalived.conf
+haproxy_service_path: /etc/systemd/system/haproxy.service
+keepalived_service_path: /etc/systemd/system/keepalived.service
+k3s_worker_uninstall_script_path: /usr/local/bin/k3s-agent-uninstall.sh
+k3s_master_uninstall_script_path: /usr/local/bin/k3s-uninstall.sh

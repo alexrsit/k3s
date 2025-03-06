@@ -1,2 +1,0 @@
-- name: Uninstall k3s on workers
-  ansible.builtin.shell: /usr/local/bin/k3s-agent-uninstall.sh
