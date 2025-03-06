@@ -7,7 +7,7 @@
   when: k3s_installed.failed
   ansible.builtin.shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 \
-    K3S_KUBECONFIG_MODE="644"\
+    K3S_KUBECONFIG_MODE="644" \
     sh -s - server \
     --cluster-init \
     --tls-san={{ virtual_ip }}
