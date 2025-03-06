@@ -34,7 +34,7 @@ jobs:
           configuration: |
             [defaults]
             host_key_checking = False
-          options: --check
+          #options: --check
         env:
           ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
           ANSIBLE_SSH_PASS: ${{ secrets.ANSIBLE_SSH_PASS }}
