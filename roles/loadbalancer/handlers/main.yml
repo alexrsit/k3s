@@ -1,9 +1,7 @@
 - name: Restart HAProxy
   ansible.builtin.systemd:
-    name: haproxy
+    name: "{{ item }}"
     state: restarted
-
-- name: Restart Keepalived
-  ansible.builtin.systemd:
-    name: keepalived
-    state: restarted
+  loop:
+    - haproxy
+    - keepalived
