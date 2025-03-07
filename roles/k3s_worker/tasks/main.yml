@@ -1,5 +1,5 @@
 - name: Check if service is running on worker nodes
-  ansible.builtin.shell: systemctl is-active k3s-agent
+  ansible.builtin.command: systemctl is-active k3s-agent
   register: k3s_running
   ignore_errors: true
 
