@@ -1,10 +1,11 @@
 - name: Check if k3s is already installed
-  ansible.builtin.shell: k3s --version
+  ansible.builtin.systemd:
+    name: k3s
+    state: started
   register: k3s_installed
-  ignore_errors: true
 
 - name: Install k3s on subsequent masters and join cluster
-  when: k3s_installed.failed
+  when: k3s_installed.state != "started"
   ansible.builtin.shell: |
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 \
     K3S_KUBECONFIG_MODE="644" \
