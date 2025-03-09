@@ -10,13 +10,13 @@
   ansible.builtin.template:
     src: haproxy.cfg.j2
     dest: "{{ loadbalancer_haproxy_conf_path }}"
-  notify: Restart HAProxy
+  notify: Restart HAProxy and Keepalived
 
 - name: Copy Keepalived configuration
   ansible.builtin.template:
     src: keepalived.conf.j2
     dest: "{{ loadbalancer_keepalived_conf_path }}"
-  notify: Restart Keepalived
+  notify: Restart HAProxy and Keepalived
 
 - name: Start HAProxy and Keepalived
   ansible.builtin.systemd:

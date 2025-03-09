@@ -1,4 +1,4 @@
-- name: Restart HAProxy
+- name: Restart HAProxy and Keepalived
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: restarted
