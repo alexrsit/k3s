@@ -1,6 +1,6 @@
 plugin: vmware_vm_inventory
 strict: False
-hostname: "{{ lookup('env', 'VMWARE_HOST') }}"
+hostname: "{{ lookup('env', 'VMWARE_SERVER') }}"
 username: "{{ lookup('env', 'VMWARE_USER') }}"
 password: "{{ lookup('env', 'VMWARE_PASSWORD') }}"
 validate_certs: False

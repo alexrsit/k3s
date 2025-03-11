@@ -31,12 +31,10 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v3
         with:
           playbook: playbook.yml
-          inventory: ${{ secrets.ANSIBLE_INVENTORY }}
+          inventory: dynamic.vmware.yml
           configuration: |
             [defaults]
             host_key_checking = False
-          #options: --check
-        env:
-          ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
-          ANSIBLE_SSH_PASS: ${{ secrets.ANSIBLE_SSH_PASS }}
-          ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}
+            [inventory]
+            enable_plugins = vmware_vm_inventory
+          options: --check
