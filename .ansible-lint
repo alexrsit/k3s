@@ -3,6 +3,7 @@ exclude_paths:
     - roles/hak3s/templates/
     - .github/workflows/
     - roles/k3s/*/
+    - tmp/
 
 skip_list:
     - command-instead-of-module
