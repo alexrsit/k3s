@@ -27,13 +27,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run ansible playbook
-        uses: dawidd6/action-ansible-playbook@v3
-        with:
-          playbook: playbook.yml
-          inventory: dynamic.vmware.yml
-          configuration: |
-            [defaults]
-            host_key_checking = False
-            [inventory]
-            enable_plugins = vmware_vm_inventory
-          options: --check
+        shell: bash
+        run: ansible-playbook playbook.yml -i dynamic.vmware.yml
