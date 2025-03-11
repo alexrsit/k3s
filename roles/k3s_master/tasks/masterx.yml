@@ -9,6 +9,6 @@
     curl -sfL https://get.k3s.io | K3S_TOKEN=secrettoken1337 \
     K3S_KUBECONFIG_MODE="644" \
     sh -s - server \
-    --server https://{{ hostvars['master1']['ansible_host'] }}:6443 \
+    --server https://{{ hostvars['m1']['ansible_host'] }}:6443 \
     K3S_KUBECONFIG_MODE="644" \
     --tls-san={{ virtual_ip }}
