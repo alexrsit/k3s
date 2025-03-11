@@ -22,7 +22,6 @@ jobs:
           args: -c .ansible-lint
 
   test-locally:
-    needs: linter
     runs-on: self-hosted
     steps:
       - name: Checkout code
