@@ -1,0 +1,20 @@
+plugin: vmware_vm_inventory
+strict: False
+hostname: "{{ VMWARE_HOST }}"
+username: "{{ VMWARE_USER }}"
+password: "{{ VMWARE_PASSWORD }}"
+validate_certs: False
+with_tags: True
+hostnames:
+- 'config.name'
+properties:
+- 'config.name'
+- 'config.annotation'
+- 'guest.ipAddress'
+filters:
+- "'loadbalancer' in config.annotation or 'master1' in config.annotation or 'masterx' in config.annotation or 'worker' in config.annotation"
+groups:
+  loadbalancer: "'loadbalancer' in config.annotation"
+  master1: "'master1' in config.annotation"
+  masterx: "'masterx' in config.annotation"
+  worker: "'worker' in config.annotation"
