@@ -4,7 +4,7 @@
 
 - name: Copy manifest to /tmp
   ansible.builtin.copy:
-    src: "{{ playbook_dir }}/roles/ha-k3s/manifests/metrics-server.yaml"
+    src: "{{ playbook_dir }}/roles/services/manifests/metrics-server.yaml"
     dest: /tmp/metrics-server.yaml
   when: namespace_exists.stdout | length == 0
 
