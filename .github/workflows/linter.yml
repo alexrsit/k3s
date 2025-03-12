@@ -22,10 +22,21 @@ jobs:
           args: -c .ansible-lint
 
   test-locally:
+    needs: linter
     runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run ansible playbook
-        shell: bash
-        run: ansible-playbook playbook.yml -i dynamic.vmware.yml
+        uses: dawidd6/action-ansible-playbook@v3
+        with:
+          playbook: playbook.yml
+          inventory: ${{ secrets.ANSIBLE_INVENTORY }}
+          configuration: |
+            [defaults]
+            host_key_checking = False
+          #options: --check
+        env:
+          ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
+          ANSIBLE_SSH_PASS: ${{ secrets.ANSIBLE_SSH_PASS }}
+          ANSIBLE_BECOME_PASSWORD: ${{ secrets.ANSIBLE_BECOME_PASSWORD }}

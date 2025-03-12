@@ -22,8 +22,8 @@
   roles:
   - k3s_worker
 
-##- name: Cleanup
- # hosts: all
- # become: yes
- # roles:
- # - cleanup
+- name: Cleanup
+  hosts: all
+  become: yes
+  roles:
+  - cleanup
