@@ -11,7 +11,7 @@
   - loadbalancer
 
 - name: Install k3s on masters
-  hosts: master1:masterx
+  hosts: m1:masterx
   become: yes
   roles:
   - k3s_master
