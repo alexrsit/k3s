@@ -23,7 +23,7 @@ Full example below
   - loadbalancer
 
 - name: Install k3s on masters
-  hosts: master1:masterx
+  hosts: m1:masterx
   become: yes
   roles:
   - k3s_master
@@ -43,15 +43,10 @@ Full example below
 ## Sample inventory with required params
 ```yaml
 all:
-  vars:
-    virtual_ip: 192.168.1.60
-    ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
-    ansible_ssh_pass: "{{ lookup('env', 'ANSIBLE_SSH_PASS') }}"
-    ansible_become_password: "{{ lookup('env', 'ANSIBLE_BECOME_PASSWORD') }}"
   children:
-    master1:
+    m1:
       hosts:
-        master1:
+        m1:
           ansible_host: 192.168.1.50
     masterx:
       hosts:
@@ -69,13 +64,45 @@ all:
           ansible_host: 192.168.1.55
     loadbalancer:
       hosts:
-        loadbalancer1:
-          keepalived_state: "MASTER"
-          keepalived_priority: 200
+        lb1:
           ansible_host: 192.168.1.56
-        loadbalancer2:
-          keepalived_state: "BACKUP"
-          keepalived_priority: 100
+        lb2:
           ansible_host: 192.168.1.57
 ```
 Using github actions against local environment for validating and testing idempotency.
+
+## Dynamically fetch hosts/inventory from vSphere
+```yaml
+plugin: vmware_vm_inventory
+strict: False
+hostname: "{{ VMWARE_HOST }}"
+username: "{{ VMWARE_USER }}"
+password: "{{ VMWARE_PASSWORD }}"
+validate_certs: False
+with_tags: True
+hostnames:
+- 'config.name'
+properties:
+- 'config.name'
+- 'config.annotation'
+- 'guest.ipAddress'
+filters:
+- "'loadbalancer' in config.annotation or 'master1' in config.annotation or 'masterx' in config.annotation or 'worker' in config.annotation"
+groups:
+  loadbalancer: "'loadbalancer' in config.annotation"
+  master1: "'master1' in config.annotation"
+  masterx: "'masterx' in config.annotation"
+  worker: "'worker' in config.annotation"
+```
+Uncomment ansible.cfg line:
+```cfg
+[defaults]
+hostkey_checking = False
+
+[inventory]
+enable_plugins = vmware_vm_inventory
+```
+
+```
+ansible-inventory -i inventory/dynamic.vmware.yml --list
+```
